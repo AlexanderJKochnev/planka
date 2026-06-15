@@ -19,7 +19,7 @@ services:
     command: >
       bash -c "for i in `seq 1 30`; do ./start.sh && s=$$? && break || s=$$?; echo \"Tried $$i times.\"; sleep 1; done; exit $$s"
     expose:
-      - "80"
+      - "1337"
     # ports:
     #   - "3000:1337" # Доступ будет по порту 3000 (можно изменить левое число на любое свободное)
     volumes:
