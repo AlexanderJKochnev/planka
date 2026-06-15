@@ -10,6 +10,8 @@ services:
       - POSTGRES_DB=planka
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - planka_network
 
   planka-app:
     image: ghcr.io/plankanban/planka:latest
@@ -37,8 +39,10 @@ services:
       - DEFAULT_ADMIN_USERNAME=admin
     networks:
       - shared_network
+      - planka_network
 
 networks:
+  planka_network:
   shared_network:
     driver: bridge
     external: true
