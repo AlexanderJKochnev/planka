@@ -28,7 +28,7 @@ services:
     environment:
       - BASE_URL=https://kan.abc8888.ru:443 # Укажите IP сервера или домен
       # - DATABASE_URL=postgresql://postgres:my_secure_password_123@postgres:5432/planka
-      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres/db_data/planka
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@planka-db:5432/planka
       - SECRET_KEY=${SECRET_KEY}
       # Данные для первого входа (после создания админа эти строки можно удалить из файла)
       - DEFAULT_ADMIN_EMAIL=admin@example.local
