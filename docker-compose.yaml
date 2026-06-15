@@ -36,7 +36,7 @@ services:
       - DEFAULT_ADMIN_NAME=Администратор
       - DEFAULT_ADMIN_USERNAME=admin
     networks:
-      - nginx_gateway_shared_network
+      - shared_network
 
 networks:
   shared_network:
