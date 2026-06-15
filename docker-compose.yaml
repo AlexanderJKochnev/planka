@@ -35,6 +35,8 @@ services:
       - DEFAULT_ADMIN_PASSWORD=${ADMIN_PWD}
       - DEFAULT_ADMIN_NAME=Администратор
       - DEFAULT_ADMIN_USERNAME=admin
+    networks:
+      - nginx_gateway_shared_network
 
 networks:
   shared_network:
