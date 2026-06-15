@@ -21,7 +21,7 @@ services:
     # expose:
     #   - "1337"
     ports:
-      - ":1337" # Доступ будет по порту 3000 (можно изменить левое число на любое свободное)
+      - "1337:1337" # Доступ будет по порту 3000 (можно изменить левое число на любое свободное)
     volumes:
       - ${BIND_VOLUMES}/${COMPOSE_PROJECT_NAME}/user_data:/app/public/user-data
       # - planka-user-data:/app/public/user-data
