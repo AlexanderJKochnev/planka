@@ -1,0 +1,42 @@
+services:
+  planka-db:
+    image: postgres:16-alpine
+    container_name: planka-db
+    restart: unless-stopped
+    volumes:
+      - ${BIND_VOLUMES}/${COMPOSE_PROJECT_NAME}/db_data:/var/lib/postgresql/data
+      # - planka-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=planka
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD= ${POSTGRES_PASSWORD}
+
+  planka-app:
+    image: ghcr.io/plankanban/planka:latest
+    container_name: planka-app
+    restart: unless-stopped
+    # Команда ниже обязательна: она ждет, пока запустится БД, чтобы приложение не упало при старте
+    command: >
+      bash -c "for i in `seq 1 30`; do ./start.sh && s=$$? && break || s=$$?; echo \"Tried $$i times.\"; sleep 1; done; exit $$s"
+    expose:
+      - "80"
+    # ports:
+    #   - "3000:1337" # Доступ будет по порту 3000 (можно изменить левое число на любое свободное)
+    volumes:
+      - ${BIND_VOLUMES}/${COMPOSE_PROJECT_NAME}/user_data:/app/public/user-data
+      # - planka-user-data:/app/public/user-data
+    environment:
+      - BASE_URL=http://IP_ВАШЕГО_СЕРВЕРА:3000 # Укажите IP сервера или домен
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${BIND_VOLUMES}/${COMPOSE_PROJECT_NAME}/db_data/planka
+      - SECRET_KEY=${SECRET_KEY}
+      # Данные для первого входа (после создания админа эти строки можно удалить из файла)
+      - DEFAULT_ADMIN_EMAIL=admin@example.local
+      - DEFAULT_ADMIN_PASSWORD=${ADMIN_PWD}
+      - DEFAULT_ADMIN_NAME=Администратор
+      - DEFAULT_ADMIN_USERNAME=admin
+
+networks:
+  shared_network:
+    driver: bridge
+    external: true
+    name: nginx_gateway_shared_network
