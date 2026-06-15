@@ -26,8 +26,9 @@ services:
       - ${BIND_VOLUMES}/${COMPOSE_PROJECT_NAME}/user_data:/app/public/user-data
       # - planka-user-data:/app/public/user-data
     environment:
-      - BASE_URL=http://IP_ВАШЕГО_СЕРВЕРА:3000 # Укажите IP сервера или домен
-      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@${BIND_VOLUMES}/${COMPOSE_PROJECT_NAME}/db_data/planka
+      - BASE_URL=https://kan.abc8888.ru:443 # Укажите IP сервера или домен
+      # - DATABASE_URL=postgresql://postgres:my_secure_password_123@postgres:5432/planka
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres/db_data/planka
       - SECRET_KEY=${SECRET_KEY}
       # Данные для первого входа (после создания админа эти строки можно удалить из файла)
       - DEFAULT_ADMIN_EMAIL=admin@example.local
